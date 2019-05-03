@@ -149,6 +149,13 @@ func (s *Server) Listen(listener net.Listener) {
 	s.listeners = append(s.listeners, listener)
 }
 
+//Use a yet opened and configured datagram connection
+func (s *Server) ListenDgram(connection net.PacketConn) {
+	//other methods use SetReadBuffer; we can't because of type issues
+	//connection.SetReadBuffer(datagramReadBufferSize)
+	s.connections = append(s.connections, connection)
+}
+
 //Starts the server, all the go routines goes to live
 func (s *Server) Boot() error {
 	if s.format == nil {

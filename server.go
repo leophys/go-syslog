@@ -144,6 +144,11 @@ func (s *Server) ListenTCPTLS(addr string, config *tls.Config) error {
 	return nil
 }
 
+//Use a yet opened and configured listener
+func (s *Server) Listen(listener net.Listener) {
+	s.listeners = append(s.listeners, listener)
+}
+
 //Starts the server, all the go routines goes to live
 func (s *Server) Boot() error {
 	if s.format == nil {
